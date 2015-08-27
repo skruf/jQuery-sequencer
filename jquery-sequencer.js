@@ -1,5 +1,6 @@
 /**
  * jQuery-Sequencer
+ * https://github.com/skruf/jQuery-sequencer
  *
  * Created by Thomas Låver
  * http://www.laaver.com
@@ -25,7 +26,7 @@
       images.push(options.path + "/" + i + "." + options.ext);
     }
 
-    $(window).scroll(function(e) {
+    $(window).scroll(function() {
       sectionHeight = $(self).height();
       windowHeight = $(this).height();
       currentScroll = $(this).scrollTop();
