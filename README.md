@@ -17,13 +17,14 @@ You would also most likely want to use a preloader for this (unless you're runni
 $("#elem").sequencer([options]);
 ```
 
+### Options (all are required)
+- `options.count` The amount of images you want to show
+- `options.path` The path to your images
+- `options.ext` The file extension of your images
+
+
 ## Create an image tag
 The plugin expects this tag to have a class called "sequencer". The image you show here will be your first frame.
 ```
 <img class="sequencer" src="./images/0.jpg">
 ```
-
-## Options (all are required)
-- `options.count` The amount of images you want to show
-- `options.path` The path to your images
-- `options.ext` The file extension of your images
