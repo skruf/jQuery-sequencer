@@ -5,35 +5,52 @@
  * Created by Thomas Låver
  * http://www.laaver.com
  *
- * Version: 1.0.0
+ * Version: 2.0.0
  * Requires: jQuery 1.6+
  *
  */
 
 (function($) {
 
-  $.fn.sequencer = function(options) {
+  $.fn.sequencer = function(options, cb) {
 
     var self = this,
-        images = [],
+        paths = [],
+        load = 0,
         sectionHeight,
         windowHeight,
         currentScroll,
         percentageScroll,
-        image;
+        index;
 
-    for (var i = 0; i < options.count; i++) {
-      images.push(options.path + "/" + i + "." + options.ext);
+    if(options.path.substr(-1) === "/") {
+      options.path = options.path.substr(0, options.path.length - 1)
     }
 
+    for (var i = 0; i <= options.count; i++) {
+      paths.push(options.path + "/" + i + "." + options.ext);
+    }
+    
+    $("<div class='jquery-sequencer-preload'></div>").appendTo("body").css("display", "none");
+    
+    $(paths).each(function() {
+      $("<img>").attr("src", this).load(function() {
+        $(this).appendTo("div.jquery-sequencer-preload");
+        load++;
+        if (load === paths.length) {
+          cb();
+        }
+      });
+    });
+    
     $(window).scroll(function() {
       sectionHeight = $(self).height();
       windowHeight = $(this).height();
       currentScroll = $(this).scrollTop();
       percentageScroll = 100 * currentScroll / (sectionHeight - windowHeight);
-      image = Math.round(percentageScroll / 100 * options.count);
-      if(image < options.count) {
-        $("img.sequencer").attr("src", images[image]);
+      index = Math.round(percentageScroll / 100 * options.count);
+      if(index < options.count) {
+        $("img.sequencer").attr("src", paths[index]);
       }
     });
 

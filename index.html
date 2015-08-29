@@ -6,8 +6,22 @@
         margin: 0;
         padding: 0;
       }
+      div#preload{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        padding-top: 25%;
+        background: #f2f2f3;
+        z-index: 1
+      }
+      div#preload h1, div#preload h2{
+        text-align: center;
+      }
       div#images{
-        height: 5000px
+        height: 5000px;
+        z-index: 0;
       }
       img{
         min-height: 100%;
@@ -20,6 +34,10 @@
     </style>
   </head>
   <body>
+    <div id="preload">
+      <h1>Hold your horses!</h1>
+      <h2>..while we load the page</h2>
+    </div>
     <div id="images">
       <img class="sequencer" src="./images/0.jpg">
     </div>
@@ -30,6 +48,8 @@
         count: 128,
         path: "./images",
         ext: "jpg"
+      }, function() {
+        $("div#preload").hide();
       });
     </script>
   </body>
